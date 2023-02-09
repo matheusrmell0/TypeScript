@@ -383,3 +383,207 @@
 //   element.style.color = color;
 //   element.style.border = `2px solid ${color}`;
 // }
+// const btn = document.querySelector('button');
+// const events = ['click', 'touchstart', 'mousedown'];
+// events.forEach((event) => btn?.addEventListener(event, handleEvent));
+// function handleEvent(event: Event) {
+//   if (event instanceof MouseEvent) {
+//     console.log(event.pageX);
+//   }
+//   if (event instanceof TouchEvent) {
+//     console.log(event.touches.item.name);
+//   }
+// }
+// const btn = document.querySelector('button');
+// const events = ['click', 'touchstart', 'mousedown'];
+// function typeEvent(element: HTMLElement) {
+//   events.forEach((event) => element?.addEventListener(event, handleEvent));
+//   function handleEvent(event: Event) {
+//     if (event instanceof MouseEvent) {
+//       console.log(event.pageX);
+//     }
+//     if (event instanceof TouchEvent) {
+//       console.log(event.touches[0].pageX);
+//     }
+//   }
+// }
+// if(btn)typeEvent(btn)
+// const btn = document.querySelector('button');
+// btn?.addEventListener('click', clickFunf)
+// function clickFunf(this: HTMLButtonElement, event: MouseEvent){
+//   console.log(this)
+// }
+// const btn = document.querySelector('button');
+// btn?.addEventListener('click', clickFunf);
+// function clickFunf(event: MouseEvent) {
+//   if (event.currentTarget instanceof HTMLElement) {
+//     console.log(event.currentTarget.innerText);
+//   }
+// }
+// const btn = document.getElementById('btn-mobile');
+// const nav = document.getElementById('nav');
+// function handleClick(event: PointerEvent) {
+//   nav?.classList.toggle('active');
+//   if (nav?.classList.contains('active')) {
+//     if (event.currentTarget instanceof HTMLElement)
+//       event.currentTarget.ariaLabel = 'Fechar Menu';
+//     if (event.currentTarget instanceof HTMLButtonElement)
+//       event.currentTarget.ariaExpanded = 'true';
+//   } else if (event.currentTarget instanceof HTMLElement) {
+//     event.currentTarget.ariaLabel = 'Abrir Menu';
+//     event.currentTarget.ariaExpanded = 'false';
+//   }
+// }
+// btn?.addEventListener('pointerdown', handleClick);
+// const btn = document.getElementById('btn-mobile');
+// function handleClick(event: PointerEvent) {
+//   const nav = document.getElementById('nav');
+//   const button = event.currentTarget;
+//   if (button instanceof HTMLElement && nav) {
+//     nav.classList.toggle('active');
+//     if (nav.classList.contains('active')) {
+//       button.setAttribute('aria-expanded', 'false');
+//       button.setAttribute('aria-label', 'Fechar Menu');
+//     } else {
+//       button.setAttribute('aria-expanded', 'true');
+//       button.setAttribute('aria-label', 'Abrir Menu');
+//     }
+//   }
+// }
+// btn?.addEventListener('pointerdown', handleClick);
+// function retonarO<TipoDoParametro>(a: TipoDoParametro): TipoDoParametro {
+//   return a;
+// }
+// console.log(retonarO('Ola'));
+// console.log(retonarO(300));
+// function dadosType<T>(a: T): { dado: T; tipo: string } {
+//   return {
+//     dado: a,
+//     tipo: typeof a,
+//   };
+// }
+// console.log(dadosType('Ola'));
+// console.log(dadosType(300));
+// console.log(dadosType(true));
+// const numeros = [1, 3, 4, 5, 3, 20, 3, 4, 5];
+// const frutas = ['Banana', 'Pêra', 'Uva', 'Laranja', 'Limão'];
+// function selectFirstFour<T>(array: T[]): T[] {
+//   console.log(array.slice(0, 4));
+//   return array.slice(0, 4);
+// }
+// selectFirstFour(numeros);
+// selectFirstFour(frutas);
+// function notNull<T>(dado: T) {
+//   if (dado !== null) return dado;
+//   else return null;
+// }
+// console.log(notNull('Ola'));
+// console.log(notNull(null));
+// console.log(notNull(0));
+// function returnHTML<T extends HTMLElement>(param: T): string {
+//   return param.innerHTML;
+// }
+// function returnText<T extends HTMLElement>(el: T): string {
+//   return el.innerText;
+// }
+// const btn = document.querySelector('button');
+// if(btn) console.log(returnText(btn));
+// if(btn) console.log(returnHTML(btn));
+// function HTMLElementData<T extends HTMLElement>(
+//   param: T,
+// ): {
+//   dataNome: string;
+//   dataHTML: string;
+//   data: HTMLElement;
+// } {
+//   return {
+//     dataNome: param.innerText,
+//     dataHTML: param.innerHTML,
+//     data: param,
+//   };
+// }
+// const btn = document.querySelector('button');
+// if (btn) console.log(HTMLElementData(btn).data);
+// if (btn) console.log(HTMLElementData(btn));
+// function $<T extends Element>(selector: string): T | null {
+//   return document.querySelector(selector);
+// }
+// const button = $('button');
+// const link = $<HTMLAnchorElement>('a')?.href;
+// console.log(button);
+// console.log(link);
+// const link = document.querySelector<HTMLAnchorElement>('a');
+// if (link instanceof HTMLAnchorElement) {
+//   console.log(link?.innerHTML);
+// }
+// async function getData<T>(url: string): Promise<T> {
+//   const response = await fetch(url);
+//   const data = await response.json();
+//   return data;
+// }
+// interface Notebook {
+//   nome: string;
+//   preco: number;
+// }
+// async function getProduto() {
+//   const notebook = await getData<Notebook>(
+//     'https://api.origamid.dev/json/notebook.json',
+//   );
+//   document.body.innerHTML += `
+//   <div>
+//   <h1>${notebook.nome}<h1/>
+//   <p>${notebook.preco} R$<p/>
+//   <div/>
+//   `;
+//   console.log(notebook.preco);
+// }
+// getProduto();
+// function somar(a: number, b: number, c?: number): number {
+//   return a + b + (c ? c : 0);
+// }
+// const subtrair = (a: number, b: number) => a - b;
+// type Callback = (event: MouseEvent) => void
+// function isString(value: any) {
+//   if (typeof value === 'string') {
+//     return true;
+//   }
+// }
+// console.log(isString('Ola'));
+// console.log(isString(1));
+// const btn = document.querySelector('button'); // true || undefined
+// btn?.click(); // void
+// function abort(message: string): never {
+//   throw new Error(message)
+// }
+// abort('Ocorreu um erro!')
+// console.log('Never ocorreu')
+// interface Quadrado {
+//   lado: number;
+//   perimetro(lado: number): number;
+// }
+// function calc(form: Quadrado) {
+//   return form.perimetro(7);
+// }
+// // Overload
+// function normalizar(value: string): string;
+// function normalizar(value: string[]): string[];
+// function normalizar(value: string | string[]): string | string[] {
+//   if (typeof value === 'string') {
+//     return value.trim().toLowerCase();
+//   } else {
+//     return value.map((item) => item.trim().toLowerCase());
+//   }
+// }
+// console.log(normalizar('  Ola mUnDo NOvO  ').concat(' novamente'));
+// console.log(normalizar([' EaE MuNdO nOvo   ']).filter((l) => (l ? l : null)));
+// function arredondar(value: string): string;
+// function arredondar(value: number): number;
+// function arredondar(value: string | number): string | number | undefined {
+//   if (typeof value === 'number') {
+//     return Math.ceil(value);
+//   } else {
+//     return Math.ceil(+value).toString();
+//   }
+// }
+// console.log(arredondar(200.5).toFixed)
+// console.log(arredondar('221.44').toLowerCase)
