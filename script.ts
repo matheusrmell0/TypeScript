@@ -706,3 +706,347 @@
 
 // console.log(arredondar(200.5).toFixed)
 // console.log(arredondar('221.44').toLowerCase)
+
+// function typeGuard(value: any) {
+//   if (typeof value === 'string') {
+//     return value.toLowerCase();
+//   }
+//   if (typeof value === 'number') {
+//     return value.toFixed();
+//   }
+//   if (value instanceof HTMLElement) {
+//     return value.innerText;
+//   }
+// }
+
+// typeGuard('Mello');
+// typeGuard(200);
+// typeGuard(document.body);
+
+// function typeGuard(value: unknown) {
+//   if (typeof value === 'string') {
+//     return value.toLowerCase();
+//   }
+//   if (typeof value === 'number') {
+//     return value.toFixed();
+//   }
+//   if (value instanceof HTMLElement) {
+//     return value.innerText;
+//   }
+// }
+
+// typeGuard('Mello');
+// typeGuard(200);
+// typeGuard(document.body);
+
+// const obj = {
+//   nome: 'Matheus',
+// };
+
+// if ('nome' in obj) {
+//   console.log('Sim');
+// }
+
+// async function fetchProduto(url: string) {
+//   const response = await fetch(url);
+//   const json = await response.json();
+//   handleProduto(json);
+// }
+// fetchProduto('https://api.origamid.dev/json/notebook.json');
+
+// interface Produto {
+//   nome: string;
+//   preco: number;
+// }
+
+// function handleProduto(data: Produto) {
+//   if ('preco' in data) {
+//     document.body.innerHTML += `
+// <p>Produto: ${data.nome}<p/>
+// <p>Preço: R$ ${data.preco + 150}<p/>
+// `;
+//   }
+// }
+
+// function isString(value: unknown): value is string {
+//   return typeof value === 'string';
+// }
+
+// function handleData(data: unknown) {
+//   if (isString(data)) {
+//     console.log(data.toLowerCase());
+//   }
+// }
+
+// handleData('Ola MUNDO');
+// handleData(20022);
+
+// interface Produto {
+//   nome: string;
+//   preco: number;
+// }
+
+// async function fetchProduto<T>(url: string): Promise<T> {
+//   const response = await fetch(url);
+//   const json = await response.json();
+//   handleProduto(json);
+//   return json;
+// }
+// fetchProduto<Produto>('https://api.origamid.dev/json/notebook.json');
+
+// function isProduto(value: unknown): value is Produto {
+//   if (
+//     value &&
+//     typeof value === 'object' &&
+//     'nome' in value &&
+//     'preco' in value
+//   ) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+
+// function handleProduto(data: Produto) {
+//   if (isProduto(data)) {
+//     document.body.innerHTML += `
+//   <p>${data.nome}<p/>
+//   <p>${data.preco}<p/>
+//   `;
+//   }
+// }
+
+// interface Cursos {
+//   nome: string;
+//   horas: number;
+//   tags: string[];
+// }
+
+// async function getData<T>(url: string): Promise<T> {
+//   const response = await fetch(url);
+//   const json = await response.json();
+//   handleData(json);
+//   return json;
+// }
+// getData<Cursos>('https://api.origamid.dev/json/cursos.json');
+
+// function isArray(value: unknown): value is Cursos[] {
+//   if (
+//     value &&
+//     typeof value === 'object' &&
+//     value instanceof Array &&
+//     'nome' in value[1] &&
+//     'horas' in value[1] &&
+//     'tags' in value[1]
+//   )
+//     return true;
+//   else return false;
+// }
+
+// function handleData(data: unknown) {
+//   if (isArray(data)) {
+//     data.forEach((curso) => {
+//       document.body.innerHTML += `
+//     <div>
+//     <p>${curso.nome}<p/>
+//     <p>${curso.horas}<p/>
+//     <p>${curso.tags.join(', ')}<p/>
+//     <div/>
+//     `;
+//     });
+//   }
+// }
+
+// interface Cursos {
+//   nome: string;
+//   horas: number;
+//   tags: string[];
+//   nivel: 'iniciante' | 'avancado';
+// }
+
+// async function getData(url: string) {
+//   const response = await fetch(url);
+//   const json = await response.json() as Promise<Cursos>;
+//   handleData(json);
+//   return json;
+// }
+// getData('https://api.origamid.dev/json/cursos.json');
+
+// function isCursos(value: unknown): value is Cursos {
+//   if (
+//     value &&
+//     typeof value === 'object' &&
+//     'nome' in value &&
+//     'horas' in value &&
+//     'tags' in value &&
+//     'nivel' in value
+//   )
+//     return true;
+//   else return false;
+// }
+
+// function handleData(data: unknown) {
+//   if (Array.isArray(data) && data instanceof Array) {
+//     data.filter(isCursos).forEach((cursos) => {
+//       document.body.innerHTML += `
+//       <div>
+//       <p>${cursos.nome}<p/>
+//       <p>${cursos.horas}<p/>
+//       <p>${cursos.tags.join(', ')}<p/>
+//       <p>${cursos.nivel}<p/>
+//       <div/>
+//       `;
+//     });
+//   }
+// }
+
+// const video = document.querySelector('.player') as HTMLVideoElement;
+// // erro runtime, não existe volume de null
+// video.volume;
+
+// // erro TS, possíveis dados devem ser compatíveis com Element | null
+// const link = document.querySelector('.link') as string;
+
+// interface Produto {
+//   nome: string;
+//   preco: number;
+// }
+
+// async function fetchProduto() {
+//   const response = await fetch('https://api.origamid.dev/json/notebook.json');
+//   return response.json() as Promise<Produto>;
+// }
+
+// // Podemos usar o as em diferentes locais.
+// async function handleProduto1() {
+//   const produto = await fetchProduto();
+//   produto.nome;
+// }
+
+// async function handleProduto2() {
+//   const produto = (await fetchProduto()) as Produto;
+//   produto.nome;
+// }
+
+// async function handleProduto3() {
+//   const produto = await fetchProduto();
+//   (produto as Produto).nome;
+// }
+
+// const video1 = document.querySelector('.player') as HTMLVideoElement;
+// const video2 = <HTMLVideoElement>document.querySelector('.player');
+// const video3 = document.querySelector<HTMLVideoElement>('.player');
+// const video4 = document.querySelector('.player');
+
+// video1.volume;
+// video2.volume;
+// video3?.volume;
+// (video4 as HTMLVideoElement).volume;
+
+// const { body }: { body: HTMLElement } = document;
+
+// // interface Produto {
+// //   nome: string;
+// //   preco?: number;
+// // }
+
+// function handleData({ nome, preco }: { nome: string; preco?: number }) {
+//   console.log(nome.includes('book'));
+//   console.log(preco?.toFixed());
+// }
+
+// handleData({
+//   nome: 'Notebook',
+//   preco: 201.5,
+// });
+
+// function eventLog({
+//   currentTarget,
+//   pageX,
+// }: {
+//   currentTarget: EventTarget | null;
+//   pageX: number;
+// }) {
+//   if (currentTarget instanceof HTMLElement)
+//     currentTarget.innerHTML = `Click do mouse em ${pageX}`;
+// }
+
+// document.documentElement.addEventListener('click', eventLog);
+
+// function eventLog({ currentTarget, pageX }: MouseEvent) {
+//   if (currentTarget instanceof HTMLElement)
+//     currentTarget.innerHTML = `Click do mouse em ${pageX}`;
+// }
+// document.documentElement.addEventListener('click', eventLog);
+
+// function comparar(tipo: 'maior' | 'menor', ...numeros: number[]) {
+//   if (tipo === 'maior') {
+//     return Math.max(...numeros);
+//   }
+//   if (tipo === 'menor') {
+//     return Math.min(...numeros);
+//   }
+// }
+
+// console.log(comparar('maior', 3, 2, 4, 30, 5, 6, 20));
+// console.log(comparar('menor', 3, 2, 4, 1, 5, 6, 20));
+
+// type Produto = {
+//   preco: number;
+// };
+
+// type Carro = {
+//   rodas: number;
+//   portas: number;
+// };
+
+// function handleProdutoCarro(dados: Carro & Produto) {
+//   dados.rodas;
+//   dados.portas;
+//   dados.preco;
+// }
+
+// handleProdutoCarro({
+//   preco: 20000,
+//   rodas: 4,
+//   portas: 5,
+// });
+
+// Com Interface
+// interface InterfaceCarro {
+//   rodas: number;
+//   portas: number;
+// }
+
+// interface InterfaceCarro {
+//   preco: number;
+// }
+
+// const dado1: InterfaceCarro = {
+//   preco: 20000,
+//   rodas: 4,
+//   portas: 5,
+// };
+
+// // Com Type
+// type TipoCarro = {
+//   rodas: number;
+//   portas: number;
+// };
+
+// type TipoCarroComPreco = TipoCarro & {
+//   preco: number;
+// };
+
+// const dado2: TipoCarroComPreco = {
+//   preco: 20000,
+//   rodas: 4,
+//   portas: 5,
+// };
+
+// interface Window {
+//   userId: number;
+// }
+
+// window.userId = 200;
+// console.log(window.userId);
