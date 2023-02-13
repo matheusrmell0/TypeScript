@@ -877,3 +877,52 @@
 // }
 // window.userId = 200;
 // console.log(window.userId);
+//
+//
+// Desafio Control Flow
+const form = document.querySelector('#form');
+window.UserData = {};
+// Type Guard com instanceof
+function handleInput({ target }) {
+    if (target instanceof HTMLInputElement) {
+        window.UserData[target.id] = target.value;
+        localStorage.setItem('userData', JSON.stringify(window.UserData));
+    }
+}
+form?.addEventListener('keyup', handleInput);
+// UserTypeGuard com in & is
+function isUserData(obj) {
+    if (obj &&
+        typeof obj === 'object' &&
+        ('nome' in obj || 'email' in obj || 'cpf' in obj)) {
+        return true;
+    }
+    else
+        return false;
+}
+// JavaScript para validJSON
+function validJSON(string) {
+    try {
+        JSON.parse(string);
+    }
+    catch (e) {
+        return false;
+    }
+    return true;
+}
+// PreencherDados
+function preencherDados(data) {
+    if (data && validJSON(data)) {
+        const userData = JSON.parse(data);
+        if (isUserData(userData)) {
+            Object.entries(userData).forEach(([key, value]) => {
+                const input = document.getElementById(key);
+                if (input instanceof HTMLInputElement) {
+                    input.value = value;
+                    window.UserData[key] = value;
+                }
+            });
+        }
+    }
+}
+preencherDados(localStorage.getItem('userData'));
