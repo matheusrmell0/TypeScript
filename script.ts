@@ -1053,62 +1053,357 @@
 //
 //
 // Desafio Control Flow
-const form = document.querySelector<HTMLElement>('#form');
-// Interface
-interface UserData {
-  nome?: string;
-  email?: string;
-  cpf?: string;
-}
-// Interface window global
-interface Window {
-  UserData: any;
-}
-window.UserData = {};
+// const form = document.querySelector<HTMLElement>('#form');
+// // Interface
+// interface UserData {
+//   nome?: string;
+//   email?: string;
+//   cpf?: string;
+// }
+// // Interface window global
+// interface Window {
+//   UserData: any;
+// }
+// window.UserData = {};
 
-// Type Guard com instanceof
-function handleInput({ target }: KeyboardEvent) {
-  if (target instanceof HTMLInputElement) {
-    window.UserData[target.id] = target.value;
-    localStorage.setItem('userData', JSON.stringify(window.UserData));
-  }
-}
-form?.addEventListener('keyup', handleInput);
+// // Type Guard com instanceof
+// function handleInput({ target }: KeyboardEvent) {
+//   if (target instanceof HTMLInputElement) {
+//     window.UserData[target.id] = target.value;
+//     localStorage.setItem('userData', JSON.stringify(window.UserData));
+//   }
+// }
+// form?.addEventListener('keyup', handleInput);
 
-// UserTypeGuard com in & is
-function isUserData(obj: object): obj is UserData {
-  if (
-    obj &&
-    typeof obj === 'object' &&
-    ('nome' in obj || 'email' in obj || 'cpf' in obj)
-  ) {
-    return true;
-  } else return false;
-}
+// // UserTypeGuard com in & is
+// function isUserData(obj: object): obj is UserData {
+//   if (
+//     obj &&
+//     typeof obj === 'object' &&
+//     ('nome' in obj || 'email' in obj || 'cpf' in obj)
+//   ) {
+//     return true;
+//   } else return false;
+// }
 
-// JavaScript para validJSON
-function validJSON(string: string) {
-  try {
-    JSON.parse(string);
-  } catch (e) {
-    return false;
-  }
-  return true;
-}
+// // JavaScript para validJSON
+// function validJSON(string: string) {
+//   try {
+//     JSON.parse(string);
+//   } catch (e) {
+//     return false;
+//   }
+//   return true;
+// }
 
-// PreencherDados
-function preencherDados(data: string | null) {
-  if (data && validJSON(data)) {
-    const userData = JSON.parse(data);
-    if (isUserData(userData)) {
-      Object.entries(userData).forEach(([key, value]) => {
-        const input = document.getElementById(key);
-        if (input instanceof HTMLInputElement) {
-          input.value = value;
-          window.UserData[key] = value
-        }
-      });
-    }
-  }
-}
-preencherDados(localStorage.getItem('userData'));
+// // PreencherDados
+// function preencherDados(data: string | null) {
+//   if (data && validJSON(data)) {
+//     const userData = JSON.parse(data);
+//     if (isUserData(userData)) {
+//       Object.entries(userData).forEach(([key, value]) => {
+//         const input = document.getElementById(key);
+//         if (input instanceof HTMLInputElement) {
+//           input.value = value;
+//           window.UserData[key] = value
+//         }
+//       });
+//     }
+//   }
+// }
+// preencherDados(localStorage.getItem('userData'));
+//
+
+// const produto1 = ['Notebook', 2500]
+// const produto2: [string, number] = ['Notebook', 2500]
+// const [nome, preco] = produto2
+
+// function getText(selector: string): null | [HTMLElement, string] {
+//   const el = document.querySelector<HTMLElement>(selector);
+//   if (el) return [el, el.innerText];
+//   else return null;
+// }
+// const form = getText('form');
+// console.log(form);
+
+// function getText(selector: string) {
+//   const el = document.querySelector<HTMLElement>(selector);
+//   if (el) return [el, el.innerText] as const;
+//   else return null;
+// }
+// const form = getText('form');
+// console.log(form);
+//
+
+// const fetchApi = async <T>(): Promise<T> => {
+//   const response = await fetch('https://api.origamid.dev/json/vendas.json');
+//   const json = await response.json();
+//   setScreen(json)
+//   return json;
+// };
+// fetchApi<Vendas[]>();
+
+// interface Detalhes {
+//   marca: string
+//   cor: string
+// }
+// type Vendas = [string, number, string, Detalhes]
+
+// const setScreen = (parm: Vendas[]) => {
+//   const result = parm.reduce((att, produtcs) => {
+//     return produtcs[1] += att
+//   }, 0)
+//   document.body.innerHTML += `
+//   Total: ${result}R$
+//   `
+// };
+
+// Keyof
+
+// interface Elementos {
+//   a: HTMLAnchorElement;
+//   video: HTMLVideoElement;
+//   div: HTMLDivElement;
+//   body: HTMLBodyElement;
+//   audio: HTMLAudioElement;
+// }
+
+// function querySelect<K extends keyof Elementos>(selector: K): Elementos[K] | null{
+//   return document.querySelector(selector)
+// }
+
+// const btn = document.querySelector<HTMLButtonElement>('.btn')
+// console.log(btn?.click())
+
+// const fetchData = async <T>(url: string): Promise<T> => {
+//   const base = `https://api.origamid.dev/json/${url}`;
+//   const response = await fetch(base);
+//   return await response.json();
+// };
+
+// interface Jogo {
+//   nome: string;
+//   ano: number;
+//   desenvolvedora: string;
+//   plataformas: string[];
+// }
+// interface Livro {
+//   nome: string;
+//   ano: number;
+//   autor: string;
+//   paginas: number;
+// }
+
+// function checkInterface<Interface>(
+//   obj: unknown,
+//   key: keyof Interface,
+// ): obj is Interface {
+//   if (obj && typeof obj === 'object' && key in obj) return true;
+//   else return false;
+// }
+
+// const handleData = async (url: string) => {
+//   const data = await fetchData(url);
+//   if (checkInterface<Jogo>(data, 'desenvolvedora')) {
+//     const { nome, ano, desenvolvedora, plataformas } = data;
+//     return {
+//       nome,
+//       ano,
+//       desenvolvedora,
+//       plataformas,
+//     };
+//   } else if (checkInterface<Livro>(data, 'autor')) {
+//     const { nome, ano, autor, paginas } = data;
+//     return {
+//       nome,
+//       ano,
+//       autor,
+//       paginas,
+//     };
+//   } else return null;
+// };
+// handleData('jogo.json');
+
+// async function dataObjetc() {
+//   const jogo = await handleData('jogo.json');
+//   const livro = await handleData('livro.json');
+//   console.log(jogo, livro);
+// }
+// dataObjetc();
+//
+//
+
+// interface Jogo {
+//   nome: string;
+//   ano: number;
+//   desenvolvedora: string;
+//   plataformas: string[];
+// }
+// interface Livro {
+//   nome: string;
+//   ano: number;
+//   autor: string;
+//   paginas: number;
+// }
+
+// function checkInterface<Interface>(obj: unknown,...keys: Array<keyof Interface>): obj is Interface {
+//   if (
+//     obj &&
+//     typeof obj === 'object' &&
+//     keys.filter((key) => key in obj).length === keys.length
+//   ) {
+//     return true;
+//   } else {
+//     return false;
+//   }
+// }
+
+// const fetchData = async <T>(url: string): Promise<T> => {
+//   const base = `https://api.origamid.dev/json/${url}`;
+//   const response = await fetch(base);
+//   return await response.json();
+// };
+
+// const handleData = async (url: string) => {
+//   const data = await fetchData(url);
+//   if (checkInterface<Jogo>(data, 'desenvolvedora')) {
+//     const { nome, ano, desenvolvedora, plataformas } = data;
+//     return {
+//       nome,
+//       ano,
+//       desenvolvedora,
+//       plataformas,
+//     };
+//   } else if (checkInterface<Livro>(data, 'autor')) {
+//     const { nome, ano, autor, paginas } = data;
+//     return {
+//       nome,
+//       ano,
+//       autor,
+//       paginas,
+//     };
+//   } else return null;
+// };
+// handleData('jogo.json');
+
+// async function dataObjetc() {
+//   const jogo = await handleData('jogo.json');
+//   const livro = await handleData('livro.json');
+//   console.log(livro)
+//   console.log(jogo)
+// }
+// dataObjetc();
+
+// interface Produto {
+//   nome: string;
+//   quantidade: number;
+// }
+
+// const produto1 = {
+//   nome: 'Notebook',
+//   quantidade: 10,
+//   cor: 'azul',
+// };
+
+// const produto2 = {
+//   nome: 'Geladeira',
+//   quantidade: 4,
+//   freezer: true,
+// };
+
+// const servico1 = {
+//   nome: 'Instalação',
+// };
+
+// function mostrarQuantidade(produto: Produto) {
+//   console.log(produto.quantidade + 20);
+// }
+
+// mostrarQuantidade(produto1);
+// mostrarQuantidade(produto2);
+
+// // erro, não possui quantidade
+// mostrarQuantidade(servico1);
+
+// interface Produto {
+//   nome: string;
+//   quantidade: number;
+// }
+
+// // Partial<Produto>
+// // interface Produto {
+// //   nome?: string;
+// //   quantidade?: number;
+// // }
+
+// const produto1 = {
+//   nome: 'Notebook',
+//   quantidade: 10,
+//   cor: 'azul',
+// };
+
+// const produto2 = {
+//   nome: 'Geladeira',
+//   quantidade: 4,
+//   freezer: true,
+// };
+
+// const produto3 = {
+//   nome: 'Instalação',
+// };
+
+// function mostrarQuantidade(produto: Partial<Produto>) {
+//   // erro, quantidade pode ser undefined
+//   console.log(produto.quantidade + 20);
+// }
+
+// mostrarQuantidade(produto1);
+// mostrarQuantidade(produto2);
+// mostrarQuantidade(produto3);
+// ///
+
+// interface Post {
+//   titulo: string;
+//   visualizacoes: number;
+//   tags: string[];
+//   [key: string]: unknown;
+// }
+
+// const artigo: Post = {
+//   titulo: 'Como aprender HTML',
+//   visualizacoes: 3000,
+//   tags: ['Front End', 'HTML'],
+//   autor: 'André',
+// };
+
+// artigo.autor;
+// artigo.descricao;
+
+// function handlePost(post: Post) {
+//   document.body.innerHTML += `${post.autor}`;
+// }
+
+// handlePost(artigo);
+
+
+// type ObjetoLiteral1 = {
+//   [key: string]: unknown;
+// };
+
+// type ObjetoLiteral2 = Record<string, unknown>;
+
+// function mostrarTitulo(obj: ObjetoLiteral2) {
+//   if ('titulo' in obj) {
+//     console.log(obj.titulo);
+//   }
+// }
+
+// // Erros:
+// // mostrarTitulo("string");
+// // mostrarTitulo(200);
+// // mostrarTitulo([1, 2]);
+// // mostrarTitulo(null);
+// // mostrarTitulo(undefined);
+// mostrarTitulo({
+//   titulo: 'Mello',
+// });
